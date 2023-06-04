@@ -1,1 +1,3 @@
+[![terraform-infra-provisioning](https://github.com/kunduso/add-asg-elb-terraform/actions/workflows/terraform.yml/badge.svg?branch=main)](https://github.com/kunduso/add-asg-elb-terraform/actions/workflows/terraform.yml) [![checkov-static-analysis-scan](https://github.com/kunduso/add-asg-elb-terraform/actions/workflows/code-scan.yml/badge.svg?branch=main)](https://github.com/kunduso/add-asg-elb-terraform/actions/workflows/code-scan.yml)
+
 # add-asg-elb-terraform
