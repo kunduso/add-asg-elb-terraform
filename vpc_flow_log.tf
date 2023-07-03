@@ -7,7 +7,7 @@ resource "aws_flow_log" "app1" {
 }
 
 resource "aws_cloudwatch_log_group" "cw_loggroup" {
-  name = "example"
+  name = "app-1-log-group"
 }
 
 data "aws_iam_policy_document" "assume_role" {
