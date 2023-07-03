@@ -35,6 +35,14 @@ jobs:
         role-session-name: AWSSession
         aws-region: us-east-2
 
+    - name: Setup Infracost
+      uses: infracost/actions/setup@v2
+      if: github.event_name == 'pull_request'
+      # See https://github.com/infracost/actions/tree/master/setup for other inputs
+      # If you can't use this action, see Docker images in https://infracost.io/cicd
+      with:
+        api-key: ${{ secrets.INFRACOST_API_KEY }}
+
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -43,7 +51,6 @@ jobs:
     - name: Terraform Init
       id: init
       run: terraform init
-
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       id: fmt
@@ -56,10 +63,28 @@ jobs:
     - name: Terraform Plan
       id: plan
       if: github.ref != 'refs/heads/main' || github.event_name == 'pull_request'
-      run: terraform plan -no-color -input=false
+      run: |
+        terraform plan -no-color -input=false -out=TFplan.JSON
       continue-on-error: true
 
-    - name: Update Pull Request
+    # Generate an Infracost diff and save it to a JSON file.
+    - name: Generate Infracost diff
+      if: github.event_name == 'pull_request'
+      run: |
+        infracost diff --path=TFplan.JSON \
+                        --format=json \
+                        --out-file=/tmp/infracost.json
+
+    - name: Post Infracost comment
+      if: github.event_name == 'pull_request'
+      run: |
+          infracost comment github --path=/tmp/infracost.json \
+                                    --repo=$GITHUB_REPOSITORY \
+                                    --github-token=${{github.token}} \
+                                    --pull-request=${{github.event.pull_request.number}} \
+                                    --behavior=new
+
+    - name: Post Terraform Plan Output
       uses: actions/github-script@v6
       if: github.event_name == 'pull_request'
       env:
@@ -92,5 +117,5 @@ jobs:
     # On push to "main", build or change infrastructure according to Terraform configuration files
     # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/main'
       run: terraform apply -auto-approve -input=false
