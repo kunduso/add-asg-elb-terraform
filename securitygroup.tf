@@ -9,14 +9,14 @@ resource "aws_security_group" "ec2_security_group" {
   }
 
   egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   vpc_id = aws_vpc.this.id
-    tags = {
+  tags = {
     "Name" = "app-1-instance-sg"
   }
 }
@@ -38,7 +38,7 @@ resource "aws_security_group" "asg_lb_security_group" {
   }
 
   vpc_id = aws_vpc.this.id
-    tags = {
+  tags = {
     "Name" = "app-1-asg-lb-sg"
   }
 }

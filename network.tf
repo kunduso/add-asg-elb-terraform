@@ -15,7 +15,7 @@ resource "aws_subnet" "private" {
   cidr_block        = var.subnet_cidr_private[count.index]
   availability_zone = var.availability_zone[count.index]
   tags = {
-    "Name" = "app-1-private-subnet-${(count.index)+1}"
+    "Name" = "app-1-private-subnet-${(count.index) + 1}"
   }
 }
 resource "aws_route_table" "this-rt" {
