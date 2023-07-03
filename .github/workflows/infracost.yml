@@ -67,12 +67,11 @@ jobs:
                           --format=json \
                           --compare-to=/tmp/infracost-base.json \
                           --out-file=/tmp/infracost.json
-                          --show-skipped
 
       # Generate an Infracost breakdown.
       - name: Generate Infracost breakdown
         run: |
-          infracost breakdown --path=. --show-skipped
+          infracost breakdown --path=. --show-skipped --out-file=/tmp/infracost-with-skipped.json
 
       # Posts a comment to the PR using the 'update' behavior.
       # This creates a single comment and updates it. The "quietest" option.
@@ -84,6 +83,14 @@ jobs:
       - name: Post Infracost comment
         run: |
             infracost comment github --path=/tmp/infracost.json \
+                                     --repo=$GITHUB_REPOSITORY \
+                                     --github-token=${{github.token}} \
+                                     --pull-request=${{github.event.pull_request.number}} \
+                                     --behavior=new
+
+      - name: Post Infracost comment with diff
+        run: |
+            infracost comment github --path=/tmp/infracost-with-skipped.json \
                                      --repo=$GITHUB_REPOSITORY \
                                      --github-token=${{github.token}} \
                                      --pull-request=${{github.event.pull_request.number}} \
