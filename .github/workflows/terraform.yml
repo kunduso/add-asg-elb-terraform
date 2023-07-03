@@ -2,10 +2,10 @@ name: terraform-infra-provisioning
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ '*' ]
-  pull_request:
-    branches: ["main"]
+  # push:
+  #   branches: [ '*' ]
+  # pull_request:
+  #   branches: ["main"]
 
 permissions: read-all
 
