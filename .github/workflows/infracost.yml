@@ -67,6 +67,7 @@ jobs:
                           --format=json \
                           --compare-to=/tmp/infracost-base.json \
                           --out-file=/tmp/infracost.json
+                          --show-skipped
 
       # Generate an Infracost breakdown.
       - name: Generate Infracost breakdown
@@ -87,4 +88,3 @@ jobs:
                                      --github-token=${{github.token}} \
                                      --pull-request=${{github.event.pull_request.number}} \
                                      --behavior=new
-                                     --show-skipped
