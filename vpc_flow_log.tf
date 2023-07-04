@@ -8,6 +8,7 @@ resource "aws_flow_log" "app1" {
 
 resource "aws_cloudwatch_log_group" "cw_loggroup" {
   name = "app-1-log-group"
+  retention_in_days = 365
 }
 
 data "aws_iam_policy_document" "assume_role" {
@@ -40,7 +41,7 @@ data "aws_iam_policy_document" "vpc_flowlog_policy" {
       "logs:DescribeLogStreams",
     ]
 
-    resources = ["*"]
+    resources = [aws_cloudwatch_log_group.cw_loggroup]
   }
 }
 
