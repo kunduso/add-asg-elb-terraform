@@ -1,6 +1,7 @@
 
 resource "aws_security_group" "ec2_security_group" {
   name = "Instance-SG"
+  description = "Managed by Terraform"
   ingress {
     from_port       = 80
     to_port         = 80
@@ -23,6 +24,7 @@ resource "aws_security_group" "ec2_security_group" {
 
 resource "aws_security_group" "asg_lb_security_group" {
   name = "ASG-LB-SG"
+  description = "Managed by Terraform"
   ingress {
     from_port   = 80
     to_port     = 80
