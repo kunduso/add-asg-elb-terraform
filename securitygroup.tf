@@ -23,7 +23,7 @@ resource "aws_security_group" "ec2_security_group" {
     from_port       = 80
     to_port         = 80
     protocol        = "tcp"
-    security_groups = [aws_security_group.asg_lb_security_group]
+    security_groups = [aws_security_group.asg_lb_security_group.id]
   }
   egress {
     from_port   = 0
