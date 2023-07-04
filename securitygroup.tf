@@ -1,6 +1,5 @@
 
 resource "aws_default_security_group" "default" {
-  description = "Ensure AWS Default Security Group restricts all traffic"
   vpc_id      = aws_vpc.this.id
   ingress {
     protocol  = "-1"
@@ -24,7 +23,7 @@ resource "aws_security_group" "ec2_security_group" {
     from_port       = 80
     to_port         = 80
     protocol        = "tcp"
-    security_groups = [aws_security_group.aws_security_group.asg_lb_security_group]
+    security_groups = [aws_security_group.asg_lb_security_group]
   }
   egress {
     from_port   = 0
