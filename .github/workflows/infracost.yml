@@ -1,7 +1,8 @@
 name: infracost-scan
 # The GitHub Actions docs (https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#on)
 # describe other options for 'on', 'pull_request' is a good default.
-on: [pull_request]
+# on:
+#   workflow_dispatch:
 env:
   # If you use private modules you'll need this env variable to use
   # the same ssh-agent socket value across all jobs & steps.
@@ -50,7 +51,6 @@ jobs:
       # Generate Infracost JSON file as the baseline.
       - name: Generate Infracost cost estimate baseline
         run: |
-          TFCode=$(pwd)
           infracost breakdown --path=. \
                               --format=json \
                               --out-file=/tmp/infracost-base.json
@@ -62,7 +62,6 @@ jobs:
       # Generate an Infracost diff and save it to a JSON file.
       - name: Generate Infracost diff
         run: |
-          TFCode=$(pwd)
           infracost diff --path=. \
                           --format=json \
                           --compare-to=/tmp/infracost-base.json \
