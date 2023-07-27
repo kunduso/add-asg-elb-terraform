@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: ["main"]
 env:
-  INFRACOST_SCAN_TYPE: hcl_code
+  INFRACOST_SCAN_TYPE: tf_plan
 permissions: read-all
 
 jobs:
@@ -114,6 +114,7 @@ jobs:
                                     --repo=$GITHUB_REPOSITORY \
                                     --github-token=${{github.token}} \
                                     --pull-request=${{github.event.pull_request.number}} \
+                                    --show-skipped \
                                     --behavior=new
 
     - name: Post Terraform Plan Output
