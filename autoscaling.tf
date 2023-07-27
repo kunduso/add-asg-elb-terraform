@@ -11,11 +11,10 @@ data "aws_ami" "amazon_ami" {
   owners      = ["amazon"]
 }
 resource "aws_launch_template" "application" {
-  image_id        = data.aws_ami.amazon_ami.id
-  instance_type   = "t2.small"
-  user_data       = filebase64("./user_data/user_data.tpl")
+  image_id      = data.aws_ami.amazon_ami.id
+  instance_type = "t2.small"
+  user_data     = filebase64("./user_data/user_data.tpl")
   network_interfaces {
-    #associate_public_ip_address = true
     security_groups = [aws_security_group.ec2_security_group.id]
   }
 
@@ -25,21 +24,21 @@ resource "aws_launch_template" "application" {
 }
 
 resource "aws_autoscaling_group" "application" {
-  name                 = "app-one"
-  min_size             = 3
-  max_size             = 6
-  desired_capacity     = 3
+  name             = "app-one"
+  min_size         = 3
+  max_size         = 6
+  desired_capacity = 3
   launch_template {
     id      = aws_launch_template.application.id
     version = "$Latest"
   }
-  vpc_zone_identifier  = aws_subnet.public.*.id
+  vpc_zone_identifier = aws_subnet.public.*.id
 
-  health_check_type    = "ELB"
+  health_check_type = "ELB"
 
   tag {
     key                 = "Name"
-    value               = "app-one"
+    value               = "app-3"
     propagate_at_launch = true
   }
 }

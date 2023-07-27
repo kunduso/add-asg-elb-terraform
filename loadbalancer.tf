@@ -20,7 +20,7 @@ resource "aws_lb_target_group" "front" {
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_attachment
 resource "aws_autoscaling_attachment" "attach-app" {
   autoscaling_group_name = aws_autoscaling_group.application.id
-  lb_target_group_arn   = aws_lb_target_group.front.arn
+  lb_target_group_arn    = aws_lb_target_group.front.arn
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener
