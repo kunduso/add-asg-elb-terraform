@@ -49,7 +49,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         ref: '${{ github.event.pull_request.base.ref }}'
-      if: github.event_name == 'pull_request' && env.INFRACOST_SCAN_TYPE == "hcl_code"
+      if: github.event_name == 'pull_request' && ${{ env.INFRACOST_SCAN_TYPE }} == "hcl_code"
 
     # Generate Infracost JSON file as the baseline.
     - name: Generate Infracost cost estimate baseline
@@ -57,12 +57,12 @@ jobs:
         infracost breakdown --path=. \
                             --format=json \
                             --out-file=/tmp/infracost-base.json
-      if: github.event_name == 'pull_request' && env.INFRACOST_SCAN_TYPE == "hcl_code"
+      if: github.event_name == 'pull_request' && ${{ env.INFRACOST_SCAN_TYPE }} == "hcl_code"
 
     # Checkout the current PR branch so we can create a diff.
     - name: Checkout PR branch
       uses: actions/checkout@v3
-      if: github.event_name == 'pull_request' && env.INFRACOST_SCAN_TYPE == "hcl_code"
+      if: github.event_name == 'pull_request' && ${{ env.INFRACOST_SCAN_TYPE }} == "hcl_code"
 
     # Generate an Infracost diff and save it to a JSON file.
     - name: Generate Infracost diff
@@ -71,7 +71,7 @@ jobs:
                         --format=json \
                         --compare-to=/tmp/infracost-base.json \
                         --out-file=/tmp/infracost.json
-      if: github.event_name == 'pull_request' && env.INFRACOST_SCAN_TYPE == "hcl_code"
+      if: github.event_name == 'pull_request' && ${{ env.INFRACOST_SCAN_TYPE }} == "hcl_code"
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
@@ -101,7 +101,7 @@ jobs:
 
     # Generate an Infracost diff and save it to a JSON file.
     - name: Generate Infracost diff
-      if: github.event_name == 'pull_request' && env.INFRACOST_SCAN_TYPE == "tf_plan"
+      if: github.event_name == 'pull_request' && ${{ env.INFRACOST_SCAN_TYPE }} == "tf_plan"
       run: |
         infracost diff --path=TFplan.JSON \
                         --format=json \
