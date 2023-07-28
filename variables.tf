@@ -20,7 +20,7 @@ variable "secret_key" {
 }
 variable "vpc_cidr" {
   description = "the vpc cidr"
-  default = "10.20.30.0/24"
+  default     = "10.20.30.0/24"
 }
 variable "subnet_cidr_private" {
   description = "cidr blocks for the private subnets"
