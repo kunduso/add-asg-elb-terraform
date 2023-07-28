@@ -6,8 +6,8 @@ on:
     branches: [ '*' ]
   pull_request:
     branches: ["main"]
-env:
-  INFRACOST_SCAN_TYPE: hcl_code
+# env:
+#   INFRACOST_SCAN_TYPE: hcl_code
 permissions: read-all
 
 jobs:
