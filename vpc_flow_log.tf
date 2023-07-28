@@ -7,7 +7,7 @@ resource "aws_flow_log" "app1" {
 }
 
 resource "aws_cloudwatch_log_group" "cw_loggroup" {
-  name              = "app-1-log-group"
+  name              = "app-3-log-group"
   retention_in_days = 365
 }
 
