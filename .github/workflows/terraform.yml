@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: ["main"]
 env:
-  INFRACOST_SCAN_TYPE: tf_plan
+  INFRACOST_SCAN_TYPE: hcl_code
 permissions: read-all
 
 jobs:
