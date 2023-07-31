@@ -4,12 +4,19 @@ on:
   workflow_dispatch:
   push:
     branches: [ '*' ]
+    paths-ignore:
+      - '**/README.md'
   pull_request:
     branches: ["main"]
-# env:
-#   INFRACOST_SCAN_TYPE: hcl_code
-permissions: read-all
+    paths-ignore:
+      - '**/README.md'
 
+permissions: read-all
+#--------------------------
+#
+# PLEASE READ: Add a GitHub Actions variable 'INFRACOST_SCAN_TYPE' and set the value to either 'hcl_code' or 'tf_plan' depending on what type of Infracost scan desired.
+#
+#--------------------------
 jobs:
   terraform:
     name: 'continuous-integration'
@@ -51,7 +58,6 @@ jobs:
       with:
         ref: '${{ github.event.pull_request.base.ref }}'
       
-
     # Generate Infracost JSON file as the baseline.
     - name: Generate Infracost cost estimate baseline
       if: ${{ (github.event_name == 'pull_request') && (vars.INFRACOST_SCAN_TYPE  == 'hcl_code') }}
@@ -116,7 +122,7 @@ jobs:
                                     --github-token=${{github.token}} \
                                     --pull-request=${{github.event.pull_request.number}} \
                                     --show-skipped \
-                                    --behavior=new
+                                    --behavior=update
 
     - name: Post Terraform Plan Output
       uses: actions/github-script@v6
