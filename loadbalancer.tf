@@ -1,6 +1,6 @@
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group
 resource "aws_lb_target_group" "front" {
-  name     = "application-front"
+  name     = "app-3-front"
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.this.id
@@ -21,6 +21,9 @@ resource "aws_lb_target_group" "front" {
 resource "aws_autoscaling_attachment" "attach-app" {
   autoscaling_group_name = aws_autoscaling_group.application.id
   lb_target_group_arn    = aws_lb_target_group.front.arn
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener
@@ -36,7 +39,7 @@ resource "aws_lb_listener" "front_end" {
 }
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb
 resource "aws_lb" "front" {
-  name               = "front"
+  name               = "app-3"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.asg_lb_security_group.id]
@@ -45,6 +48,6 @@ resource "aws_lb" "front" {
   enable_deletion_protection = false
 
   tags = {
-    Environment = "Dev"
+    Environment = "Development"
   }
 }
