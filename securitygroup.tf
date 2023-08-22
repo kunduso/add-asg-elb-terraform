@@ -17,7 +17,7 @@ resource "aws_default_security_group" "default" {
 }
 
 resource "aws_security_group" "ec2_security_group" {
-  name        = "Instance-SG"
+  name        = "App-3-Instance-SG"
   description = "Allow inbound and outbound traffic to EC2 instances from load balancer security group"
   ingress {
     from_port       = 80
@@ -33,13 +33,13 @@ resource "aws_security_group" "ec2_security_group" {
   }
   vpc_id = aws_vpc.this.id
   tags = {
-    "Name" = "app-1-instance-sg"
+    "Name" = "app-3-instance-sg"
   }
 }
 
 resource "aws_security_group" "asg_lb_security_group" {
   description = "Allow inbound and outbound traffic to load balancer from the internet."
-  name        = "ASG-LB-SG-IN"
+  name        = "App-3-ASG-LB-SG-IN"
   ingress {
     from_port   = 80
     to_port     = 80
@@ -54,6 +54,6 @@ resource "aws_security_group" "asg_lb_security_group" {
   }
   vpc_id = aws_vpc.this.id
   tags = {
-    "Name" = "app-1-asg-lb-sg"
+    "Name" = "app-3-asg-lb-sg"
   }
 }
