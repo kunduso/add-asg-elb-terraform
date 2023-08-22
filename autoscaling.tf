@@ -17,9 +17,9 @@ resource "aws_launch_template" "application" {
   network_interfaces {
     security_groups = [aws_security_group.ec2_security_group.id]
   }
-#   iam_instance_profile {
-#     name = "ec2_profile"
-#   }
+  #   iam_instance_profile {
+  #     name = "ec2_profile"
+  #   }
   lifecycle {
     create_before_destroy = true
   }
