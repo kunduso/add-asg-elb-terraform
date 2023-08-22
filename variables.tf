@@ -24,16 +24,21 @@ variable "vpc_cidr" {
 }
 variable "subnet_cidr_private" {
   description = "cidr blocks for the private subnets"
-  default     = ["10.20.20.0/27", "10.20.20.32/27", "10.20.20.64/27"]
+  default     = ["10.20.30.0/27", "10.20.30.32/27", "10.20.30.64/27"]
   type        = list(any)
 }
 variable "subnet_cidr_public" {
   description = "cidr blocks for the public subnets"
-  default     = ["10.20.20.96/27", "10.20.20.128/27", "10.20.20.160/27"]
+  default     = ["10.20.30.96/27", "10.20.30.128/27", "10.20.30.160/27"]
   type        = list(any)
 }
-variable "availability_zone" {
-  description = "availability zones for the private subnets"
-  default     = ["us-east-2a", "us-east-2b", "us-east-2c"]
-  type        = list(any)
+variable "ami_name" {
+  description = "The ami name of the image from where the instances will be created"
+  default     = ["amzn2-ami-amd-hvm-2.0.20230727.0-x86_64-gp2"]
+  type        = list(string)
+}
+variable "instance_type" {
+  description = "The instance type of the EC2 instances"
+  default     = "t2.small"
+  type        = string
 }
