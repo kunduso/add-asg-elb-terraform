@@ -17,30 +17,30 @@ resource "aws_launch_template" "application" {
   network_interfaces {
     security_groups = [aws_security_group.ec2_security_group.id]
   }
-    iam_instance_profile {
-      name = "ec2_profile"
-    }
+  iam_instance_profile {
+    name = "ec2_profile"
+  }
   lifecycle {
     create_before_destroy = true
   }
 }
 
 resource "aws_autoscaling_group" "application" {
-  name             = "app-3"
-  min_size         = 3
-  max_size         = 6
-  desired_capacity = 3
+  name                      = "app-3"
+  min_size                  = 3
+  max_size                  = 6
+  desired_capacity          = 3
   health_check_grace_period = 480
   launch_template {
     id      = aws_launch_template.application.id
-    version = "$Latest"
+    version = aws_launch_template.application.latest_version
   }
   vpc_zone_identifier = aws_subnet.private.*.id
 
   health_check_type = "ELB"
-    lifecycle { 
-        ignore_changes = [desired_capacity, target_group_arns]
-    }
+  lifecycle {
+    ignore_changes = [desired_capacity, target_group_arns]
+  }
   tag {
     key                 = "Name"
     value               = "app-3"
