@@ -30,6 +30,7 @@ resource "aws_autoscaling_group" "application" {
   min_size         = 3
   max_size         = 6
   desired_capacity = 3
+  health_check_grace_period = 480
   launch_template {
     id      = aws_launch_template.application.id
     version = "$Latest"
