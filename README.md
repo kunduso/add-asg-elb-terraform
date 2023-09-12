@@ -8,7 +8,7 @@ I aimed to create an Amazon Auto Scaling group and launch template consisting EC
 ## Prerequisites
 For this code to function without errors, I created an OpenID Connect identity provider in Amazon Identity and Access Management that has a trust relationship with this GitHub repository. You can read about it [here](https://skundunotes.com/2023/02/28/securely-integrate-aws-credentials-with-github-actions-using-openid-connect/) to get a detailed explanation with steps.
 <br />I stored the `ARN` of the `IAM Role` as a GitHub secret which is referred to in the [`terraform.yml`](https://github.com/kunduso/add-asg-elb-terraform/blob/de8f1559fdc19e8decf5066e383537511f512244/.github/workflows/terraform.yml#L39-L44) file.
-<br />Since I used Infracost in this repository, I stored the `INFRACOST_API_KEY` as a repository secret. It is referenced in the `terraform.yml` GitHub actions workflow file.
+<br />Since I used Infracost in this repository, I stored the `INFRACOST_API_KEY` as a repository secret. It is referenced in the [`terraform.yml`](https://github.com/kunduso/add-asg-elb-terraform/blob/de8f1559fdc19e8decf5066e383537511f512244/.github/workflows/terraform.yml#L52) GitHub actions workflow file.
 <br />As part of the Infracost integration, I also created an `INFRACOST_API_KEY` and stored that as a GitHub Actions secret. I also managed the cost estimate process using a GitHub Actions variable `INFRACOST_SCAN_TYPE` where the value is either `hcl_code` or `tf_plan`, depending on the type of scan desired.
 ## Usage
 Ensure that the policy attached to the IAM role whose credentials are being used in this configuration has permission to create and manage all the resources that are included in this repository.
