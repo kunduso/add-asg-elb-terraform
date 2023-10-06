@@ -50,6 +50,11 @@ resource "aws_autoscaling_group" "application" {
     value               = "app-3"
     propagate_at_launch = true
   }
+  tag {
+    key                 = "Source"
+    value               = "https://github.com/kunduso/add-asg-elb-terraform"
+    propagate_at_launch = true
+  }
 }
 
 resource "aws_autoscaling_policy" "asg_policy_up" {
