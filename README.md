@@ -3,7 +3,11 @@
 I aimed to create an Amazon Auto Scaling group and launch template consisting EC2 instances hosted in three different availability zones in three separate *private* subnets in a region. Then, attach the Amazon EC2 instances to a target group of an application load balancer in the public subnet using **Terraform and GitHub Actions.**
 
 <br />I discussed the concept in detail in my notes at -[create Amazon EC2 Auto Scaling group and load balancer using Terraform and GitHub Actions.](https://skundunotes.com/2023/09/12/create-amazon-ec2-auto-scaling-group-and-load-balancer-using-terraform-and-github-actions/)
+
 <br />If you are interested in learning about the CPU based scaling policies check out this note:  [create an Amazon EC2 Auto Scaling group with metric scaling policies using Terraform.](https://skundunotes.com/2023/09/27/create-an-amazon-ec2-auto-scaling-group-with-metric-scaling-policies-using-terraform/)
+
+<br />To learn how to trigger an `instance refresh` with a `launch_template` update, head over to this note: [trigger instance refresh of Amazon EC2 Auto Scaling group with a launch template update using Terraform](http://skundunotes.com/2023/10/05/trigger-instance-refresh-of-amazon-ec2-auto-scaling-group-with-a-launch-template-update-using-terraform/)
+
 <br />I also used [Infracost](https://www.infracost.io/) to generate a cost estimate for building the architecture. Checkout the cool *monthly cost badge* at the top of this file. To learn more about adding Infracost estimates to your repository, head over to this note -[estimate AWS Cloud resource cost with Infracost, Terraform, and GitHub Actions.](https://skundunotes.com/2023/07/17/estimate-aws-cloud-resource-cost-with-infracost-terraform-and-github-actions/)
 <br />Lastly, I also automated the resource provision process using the GitHub Actions pipeline. I discussed that in detail at -[CI-CD with Terraform and GitHub Actions to deploy to AWS.](https://skundunotes.com/2023/03/07/ci-cd-with-terraform-and-github-actions-to-deploy-to-aws/)
 ## Prerequisites
