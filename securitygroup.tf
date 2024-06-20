@@ -32,8 +32,6 @@ resource "aws_security_group_rule" "egress_ec2" {
   to_port     = 0
   protocol    = "-1"
   cidr_blocks = ["0.0.0.0/0"]
-  # source_security_group_id = [aws_security_group.asg_lb_security_group.id]
-  # first test if the sg is working fine with the ingress and egress rules. If that works, then try to remove the cidr_blocks and try with the source_security_group_id
   security_group_id = aws_security_group.ec2_security_group.id
 }
 resource "aws_security_group" "asg_lb_security_group" {
