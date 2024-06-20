@@ -42,3 +42,8 @@ variable "instance_type" {
   default     = "t2.medium"
   type        = string
 }
+variable "name" {
+  description = "The name of the application."
+  type        = string
+  default     = "app-3"
+}
