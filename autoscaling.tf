@@ -10,6 +10,7 @@ data "aws_ami" "amazon_ami" {
   most_recent = true
   owners      = ["amazon"]
 }
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template
 resource "aws_launch_template" "application" {
   image_id      = data.aws_ami.amazon_ami.id
   instance_type = var.instance_type
@@ -22,6 +23,7 @@ resource "aws_launch_template" "application" {
   }
 }
 
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group
 resource "aws_autoscaling_group" "application" {
   name                      = var.name
   min_size                  = 3
@@ -57,6 +59,7 @@ resource "aws_autoscaling_group" "application" {
   }
 }
 
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_policy
 resource "aws_autoscaling_policy" "asg_policy_up" {
   name                   = "${var.name}-asg-policy-up"
   scaling_adjustment     = 1
@@ -64,6 +67,8 @@ resource "aws_autoscaling_policy" "asg_policy_up" {
   cooldown               = 300
   autoscaling_group_name = aws_autoscaling_group.application.name
 }
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm
 resource "aws_cloudwatch_metric_alarm" "asg_cpu_alarm_up" {
   alarm_name          = "${var.name}-asg-cpu-alarm-up"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -80,6 +85,7 @@ resource "aws_cloudwatch_metric_alarm" "asg_cpu_alarm_up" {
   alarm_actions     = [aws_autoscaling_policy.asg_policy_up.arn]
 }
 
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_policy
 resource "aws_autoscaling_policy" "asg_policy_down" {
   name                   = "${var.name}-asg-policy-down"
   scaling_adjustment     = -1
@@ -87,6 +93,8 @@ resource "aws_autoscaling_policy" "asg_policy_down" {
   cooldown               = 300
   autoscaling_group_name = aws_autoscaling_group.application.name
 }
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm
 resource "aws_cloudwatch_metric_alarm" "asg_cpu_alarm_down" {
   alarm_name          = "${var.name}-asg-cpu-alarm-down"
   comparison_operator = "GreaterThanOrEqualToThreshold"
