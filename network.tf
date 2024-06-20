@@ -7,7 +7,7 @@ resource "aws_vpc" "this" {
   enable_dns_hostnames = true
   #checkov:skip=CKV2_AWS_11: Not creating a flow log for this VPC
   tags = {
-    "Name" = "app-3"
+    "Name" = var.name
   }
 }
 data "aws_availability_zones" "available" {
@@ -19,7 +19,7 @@ resource "aws_subnet" "private" {
   cidr_block        = var.subnet_cidr_private[count.index]
   availability_zone = data.aws_availability_zones.available.names[(count.index) % length(data.aws_availability_zones.available.names)]
   tags = {
-    "Name" = "app-3-private-${count.index + 1}"
+    "Name" = "${var.name}-private-${count.index + 1}"
   }
 }
 resource "aws_subnet" "public" {
@@ -28,20 +28,20 @@ resource "aws_subnet" "public" {
   cidr_block        = var.subnet_cidr_public[count.index]
   availability_zone = data.aws_availability_zones.available.names[(count.index) % length(data.aws_availability_zones.available.names)]
   tags = {
-    "Name" = "app-3-public-${count.index + 1}"
+    "Name" = "${var.name}-public-${count.index + 1}"
   }
 }
 resource "aws_route_table" "private" {
   count  = length(var.subnet_cidr_private)
   vpc_id = aws_vpc.this.id
   tags = {
-    "Name" = "app-3-route-table-${count.index + 1}"
+    "Name" = "${var.name}-route-table-${count.index + 1}"
   }
 }
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.this.id
   tags = {
-    "Name" = "app-3-public"
+    "Name" = "${var.name}-public"
   }
 }
 resource "aws_route_table_association" "private" {
@@ -57,7 +57,7 @@ resource "aws_route_table_association" "public" {
 resource "aws_internet_gateway" "this-igw" {
   vpc_id = aws_vpc.this.id
   tags = {
-    "Name" = "app-3-gateway"
+    "Name" = "${var.name}-gateway"
   }
 }
 resource "aws_route" "internet-route" {
@@ -76,7 +76,7 @@ resource "aws_nat_gateway" "public" {
   allocation_id = aws_eip.nat_gateway[count.index].id
   depends_on    = [aws_internet_gateway.this-igw]
   tags = {
-    "Name" = "app-3-NAT-${count.index + 1}"
+    "Name" = "${var.name}-NAT-${count.index + 1}"
   }
 }
 resource "aws_route" "private-route" {

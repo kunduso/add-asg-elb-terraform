@@ -18,12 +18,12 @@ resource "aws_launch_template" "application" {
     security_groups = [aws_security_group.ec2_security_group.id]
   }
   iam_instance_profile {
-    name = "ec2_profile"
+    name = "${var.name}-ec2-profile"
   }
 }
 
 resource "aws_autoscaling_group" "application" {
-  name                      = "app-3"
+  name                      = var.name
   min_size                  = 3
   max_size                  = 6
   desired_capacity          = 3
@@ -47,7 +47,7 @@ resource "aws_autoscaling_group" "application" {
   }
   tag {
     key                 = "Name"
-    value               = "app-3"
+    value               = var.name
     propagate_at_launch = true
   }
   tag {
@@ -58,14 +58,14 @@ resource "aws_autoscaling_group" "application" {
 }
 
 resource "aws_autoscaling_policy" "asg_policy_up" {
-  name                   = "asg_policy_up"
+  name                   = "${var.name}-asg-policy-up"
   scaling_adjustment     = 1
   adjustment_type        = "ChangeInCapacity"
   cooldown               = 300
   autoscaling_group_name = aws_autoscaling_group.application.name
 }
 resource "aws_cloudwatch_metric_alarm" "asg_cpu_alarm_up" {
-  alarm_name          = "asg_cpu_alarm_up"
+  alarm_name          = "${var.name}-asg-cpu-alarm-up"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "2"
   metric_name         = "CPUUtilization"
@@ -81,14 +81,14 @@ resource "aws_cloudwatch_metric_alarm" "asg_cpu_alarm_up" {
 }
 
 resource "aws_autoscaling_policy" "asg_policy_down" {
-  name                   = "asg_policy_down"
+  name                   = "${var.name}-asg-policy-down"
   scaling_adjustment     = -1
   adjustment_type        = "ChangeInCapacity"
   cooldown               = 300
   autoscaling_group_name = aws_autoscaling_group.application.name
 }
 resource "aws_cloudwatch_metric_alarm" "asg_cpu_alarm_down" {
-  alarm_name          = "asg_cpu_alarm_down"
+  alarm_name          = "${var.name}-asg-cpu-alarm-down"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "2"
   metric_name         = "CPUUtilization"
