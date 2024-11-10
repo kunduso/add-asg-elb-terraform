@@ -7,7 +7,10 @@ resource "aws_flow_log" "network_flow_logging" {
 }
 
 resource "aws_cloudwatch_log_group" "network_flow_logging" {
-  name = "${var.name}-vpc-flow-logs"
+  name              = "${var.name}-vpc-flow-logs"
+  retention_in_days = 365
+  kms_key_id        = aws_kms_key.custom_kms_key.arn
+  depends_on        = [aws_kms_key.custom_kms_key]
 }
 
 data "aws_iam_policy_document" "assume_role" {
