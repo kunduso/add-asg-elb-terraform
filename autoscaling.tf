@@ -34,7 +34,7 @@ resource "aws_autoscaling_group" "application" {
     id      = aws_launch_template.application.id
     version = aws_launch_template.application.latest_version
   }
-  vpc_zone_identifier = aws_subnet.private.*.id
+  vpc_zone_identifier = module.vpc.private_subnets.*.id
   health_check_type   = "ELB"
   lifecycle {
     ignore_changes = [desired_capacity, target_group_arns]
