@@ -18,6 +18,12 @@ resource "aws_launch_template" "application" {
   network_interfaces {
     security_groups = [aws_security_group.ec2_security_group.id]
   }
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 1
+    instance_metadata_tags      = "enabled"
+  }
   iam_instance_profile {
     name = "${var.name}-ec2-profile"
   }
