@@ -1,17 +1,8 @@
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_security_group
-resource "aws_default_security_group" "default" {
-  vpc_id = aws_vpc.this.id
-  tags = {
-    "Name" = "${var.name}-default-sg"
-  }
-}
-
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group
 resource "aws_security_group" "ec2_security_group" {
   name        = "${var.name}-Instance-SG"
   description = "Allow inbound and outbound traffic to EC2 instances from load balancer security group"
-  vpc_id      = aws_vpc.this.id
+  vpc_id      = module.vpc.vpc.id
   tags = {
     "Name" = "${var.name}-instance-sg"
   }
@@ -41,7 +32,7 @@ resource "aws_security_group_rule" "egress_ec2" {
 resource "aws_security_group" "asg_lb_security_group" {
   description = "Allow inbound and outbound traffic to load balancer from the internet."
   name        = "${var.name}-ASG-LB-SG-IN"
-  vpc_id      = aws_vpc.this.id
+  vpc_id      = module.vpc.vpc.id
   tags = {
     "Name" = "${var.name}-asg-lb-sg"
   }
