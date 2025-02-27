@@ -17,4 +17,4 @@ systemctl start httpd.service
 systemctl enable httpd.service
 
 # Create the web page with instance information
-echo "Updated Message: Hello World from $(hostname -f) from the availability zone: $REGION_AV_ZONE" > /var/www/html/index.html
+echo "Hello World from $(hostname -f) from the availability zone: $REGION_AV_ZONE" > /var/www/html/index.html
