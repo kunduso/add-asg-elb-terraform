@@ -22,8 +22,8 @@ resource "aws_security_group_rule" "egress_ec2" {
   description       = "allow traffic to the load balancer"
   type              = "egress"
   from_port         = 0
-  to_port           = 0
-  protocol          = "-1"
+  to_port           = 65535
+  protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ec2_security_group.id
 }
@@ -52,8 +52,8 @@ resource "aws_security_group_rule" "egress_load_balancer" {
   description       = "Allow traffic to reach outside the vpc."
   type              = "egress"
   from_port         = 0
-  to_port           = 0
-  protocol          = "-1"
+  to_port           = 65535
+  protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.asg_lb_security_group.id
 }
