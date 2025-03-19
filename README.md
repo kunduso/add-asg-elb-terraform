@@ -1,5 +1,5 @@
-[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-white.svg)](https://choosealicense.com/licenses/unlicense/)[![GitHub pull-requests closed](https://img.shields.io/github/issues-pr-closed/kunduso/add-asg-elb-terraform)](https://github.com/kunduso/add-asg-elb-terraform/pulls?q=is%3Apr+is%3Aclosed)[![GitHub pull-requests](https://img.shields.io/github/issues-pr/kunduso/add-asg-elb-terraform)](https://GitHub.com/kunduso/add-asg-elb-terraform/pull/)
-[![GitHub issues-closed](https://img.shields.io/github/issues-closed/kunduso/add-asg-elb-terraform)](https://github.com/kunduso/add-asg-elb-terraform/issues?q=is%3Aissue+is%3Aclosed)[![GitHub issues](https://img.shields.io/github/issues/kunduso/add-asg-elb-terraform)](https://GitHub.com/kunduso/add-asg-elb-terraform/issues/)
+[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-white.svg)](https://choosealicense.com/licenses/unlicense/) [![GitHub pull-requests closed](https://img.shields.io/github/issues-pr-closed/kunduso/add-asg-elb-terraform)](https://github.com/kunduso/add-asg-elb-terraform/pulls?q=is%3Apr+is%3Aclosed) [![GitHub pull-requests](https://img.shields.io/github/issues-pr/kunduso/add-asg-elb-terraform)](https://GitHub.com/kunduso/add-asg-elb-terraform/pull/) 
+[![GitHub issues-closed](https://img.shields.io/github/issues-closed/kunduso/add-asg-elb-terraform)](https://github.com/kunduso/add-asg-elb-terraform/issues?q=is%3Aissue+is%3Aclosed) [![GitHub issues](https://img.shields.io/github/issues/kunduso/add-asg-elb-terraform)](https://GitHub.com/kunduso/add-asg-elb-terraform/issues/) 
 [![terraform-infra-provisioning](https://github.com/kunduso/add-asg-elb-terraform/actions/workflows/terraform.yml/badge.svg?branch=main)](https://github.com/kunduso/add-asg-elb-terraform/actions/workflows/terraform.yml) [![checkov-static-analysis-scan](https://github.com/kunduso/add-asg-elb-terraform/actions/workflows/code-scan.yml/badge.svg?branch=main)](https://github.com/kunduso/add-asg-elb-terraform/actions/workflows/code-scan.yml)
 ![Image](https://skdevops.files.wordpress.com/2023/09/82-image-0.png)
 ## Motivation
@@ -23,5 +23,7 @@ Ensure that the policy attached to the IAM role whose credentials are being used
 <br />
 <br />Review the code, including the [`terraform.yml`](./.github/workflows/terraform.yml) to understand the steps in the GitHub Actions pipeline. Also, review the `terraform` code to understand all the concepts associated with creating an AWS Auto Scaling group.
 <br />To check the pipeline logs, click on the **Build Badge** (terrform-infra-provisioning) above the image in this ReadMe.
+## Contributing
+If you find any issues or have suggestions for improvement, feel free to open an issue or submit a pull request. Contributions are always welcome!
 ## License
 This code is released under the Unlincse License. See [LICENSE](LICENSE).
