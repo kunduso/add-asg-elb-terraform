@@ -1,3 +1,4 @@
+data "aws_caller_identity" "current" {}
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group
 resource "aws_lb_target_group" "front" {
   name     = "${var.name}-front"
