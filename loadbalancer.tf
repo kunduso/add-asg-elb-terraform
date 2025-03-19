@@ -71,6 +71,11 @@ resource "aws_s3_bucket" "artifacts" {
 
   #checkov:skip=CKV2_AWS_62: S3 buckets do not have event notifications enabled
   #The items in this s3 bucket are access logs and do not require any event notifications to be sent anywhere.
+
+  #checkov:skip=CKV_AWS_145: Ensure that S3 buckets are encrypted with KMS by default
+  #The only server-side encryption option that's supported is Amazon S3-managed keys (SSE-S3)
+  #This bucket is already encrypted below using SSE-S3.
+  #resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt_bucket" {}
 }
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block
@@ -87,6 +92,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt_bucket" {
   bucket = aws_s3_bucket.artifacts.bucket
   rule {
     apply_server_side_encryption_by_default {
+      #The only server-side encryption option that's supported is Amazon S3-managed keys (SSE-S3) 
+      #https://docs.aws.amazon.com/elasticloadbalancing/latest/application/enable-access-logging.html#access-log-create-bucket
       sse_algorithm = "AES256"
     }
   }
